@@ -1,8 +1,8 @@
-=== Portfolio Showcase ===
+=== Portfolio Showcase by DevTarak ===
 Contributors: devtarak  
 Tags: portfolio, elementor, showcase, portfolio grid, custom post type  
 Requires at least: 5.0  
-Tested up to: 6.5  
+Tested up to: 6.8  
 Requires PHP: 7.2  
 Stable tag: 1.0.0  
 License: GPLv2 or later  
@@ -12,7 +12,7 @@ A simple and elegant portfolio showcase plugin with Elementor support. Create an
 
 == Description ==
 
-**Portfolio Showcase** helps you display portfolio items professionally and beautifully. It registers a custom post type for portfolio entries and provides Elementor widget integration so you can easily add the showcase anywhere on your site.
+**Portfolio Showcase by DevTarak** helps you display portfolio items professionally and beautifully. It registers a custom post type for portfolio entries and provides Elementor widget integration so you can easily add the showcase anywhere on your site.
 
 **Key Features:**
 
