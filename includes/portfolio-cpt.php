@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 // Register Portfolio Custom Post Type
 function portfolio_register_post_type() {
     $args = array(
@@ -120,37 +123,36 @@ function render_portfolio_meta_box($post) {
 
 // Save Meta Box Data
 function save_portfolio_meta($post_id) {
-    // Avoid overwriting when auto-saving
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
 
-    // Verify nonce
     if (!isset($_POST['portfolio_nonce']) || !wp_verify_nonce($_POST['portfolio_nonce'], 'portfolio_details_nonce_action')) {
         return $post_id;
     }
 
-    // Save project dates with validation
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+        return $post_id;
+    }
+
     if (isset($_POST['portfolio_start_date'])) {
-        $start_date = sanitize_text_field($_POST['portfolio_start_date']);
+        $start_date = sanitize_text_field(wp_unslash($_POST['portfolio_start_date']));
         if (strtotime($start_date)) {
             update_post_meta($post_id, '_portfolio_start_date', $start_date);
         }
     }
 
     if (isset($_POST['portfolio_end_date'])) {
-        $end_date = sanitize_text_field($_POST['portfolio_end_date']);
+        $end_date = sanitize_text_field(wp_unslash($_POST['portfolio_end_date']));
         if (strtotime($end_date)) {
             update_post_meta($post_id, '_portfolio_end_date', $end_date);
         }
     }
 
-    // Save technologies
     if (isset($_POST['portfolio_technologies'])) {
-        update_post_meta($post_id, '_portfolio_technologies', sanitize_textarea_field($_POST['portfolio_technologies']));
+        update_post_meta($post_id, '_portfolio_technologies', sanitize_textarea_field(wp_unslash($_POST['portfolio_technologies'])));
     }
 
-    // Save live link
     if (isset($_POST['portfolio_live_link'])) {
-        update_post_meta($post_id, '_portfolio_live_link', esc_url_raw($_POST['portfolio_live_link']));
+        update_post_meta($post_id, '_portfolio_live_link', esc_url_raw(wp_unslash($_POST['portfolio_live_link'])));
     }
 
     return $post_id;
